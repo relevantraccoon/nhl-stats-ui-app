@@ -1,0 +1,33 @@
+@charset "UTF-8";
+/*
+
+PRIMARY
+
+A primary color is the color displayed most frequently across your app's screens and components.
+Your primary color can be used to make a color theme for your app, including dark and light primary color variants.
+
+SECONDARY
+A secondary color provides more ways to accent and distinguish your product. Having a secondary color is 
+optional, and should be applied sparingly to accent select parts of your UI.
+* Floating action buttons
+* Selection controls, like sliders and switches
+* Highlighting selected text
+* Progress bars
+* Links and headlines
+
+Dark and light secondary variants
+Just like the primary color, your secondary color can have dark and light variants. A color
+theme can use your primary color, secondary color, and dark and light variants of each color.
+
+Surface, background, and error colors typically don’t represent brand:
+
+* Surface colors affect surfaces of components, such as cards, sheets, and menus.
+* The background color appears behind scrollable content. The baseline background and surface color is #FFFFFF.
+* Error color indicates errors in components, such as invalid text in a text field. The baseline error color is #B00020.
+
+Läs mer här när du väljer
+https://material.io/design/color/the-color-system.html#color-theme-creation
+
+*/
+
+/*# sourceMappingURL=colorscheme.css.map */

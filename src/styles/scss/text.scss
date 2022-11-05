@@ -1,0 +1,23 @@
+// Google fonts
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&family=Rubik:wght@400;500;600;700;800&display=swap");
+
+$heading-ff: "Rubik", sans-serif;
+$text-ff: "Rubik", sans-serif;
+
+// Font weights
+$boldest: 900;
+$extrabold: 800;
+$bold: 700;
+$semibold: 600;
+$medium: 500;
+$regular: 400;
+$light: 300;
+
+// Font sizes
+$body-size: 1rem;
+$body-size-small: 1rem * 0.75;
+$heading-h1: $body-size * 2.188;
+$subheading: $body-size * 1.875;
+$subheading2: $body-size * 1.5;
+
+$line-spacing: 140%;

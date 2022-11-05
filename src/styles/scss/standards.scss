@@ -1,0 +1,27 @@
+// margins
+$medium-margin: 1rem;
+$small-margin: $medium-margin * 0.75;
+$large-margin: $medium-margin * 1.875;
+$huge-margin: $medium-margin * 2.188;
+
+// paddings
+$medium-padding: 1rem;
+$small-padding: $medium-padding * 0.75;
+$large-padding: $medium-padding * 1.875;
+$huge-padding: $medium-padding * 2.188;
+
+// heights
+$half-prct-height: 50%;
+$whole-prct-height: 100%;
+
+$tall-height: 100vw;
+$medium-height: 60vw;
+$short-height: 30vw;
+
+// widths
+$half-prct-width: 50%;
+$whole-prct-width: 100%;
+
+$wide-width: 100vw;
+$medium-width: 60vw;
+$thin-width: 30vw;
