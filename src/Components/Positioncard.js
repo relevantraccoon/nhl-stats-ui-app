@@ -18,8 +18,10 @@ const Positioncard = () => {
   return (
     <section id="leaders-pos-card">
       <Poscardnav />
-      <Playercard />
-      <Leaderslist />
+      <div id="leaders-pos-card-main">
+        <Playercard />
+        <Leaderslist />
+      </div>
     </section>
   );
 };

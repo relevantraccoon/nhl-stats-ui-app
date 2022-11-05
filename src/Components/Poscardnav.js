@@ -2,7 +2,7 @@ import React from "react";
 
 const Poscardnav = () => {
   return (
-    <div>
+    <div id="poscardnav-heading-div">
       <header>
         <h2 id="leaders-header">Skaters</h2>
       </header>

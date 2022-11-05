@@ -3,7 +3,7 @@ import Positioncard from "./Positioncard";
 
 const Main = () => {
   return (
-    <main>
+    <main id="main">
       <Positioncard />
       <Positioncard />
       <Positioncard />
