@@ -1,0 +1,319 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&family=Rubik:wght@400;500;600;700;800&display=swap");
+/*
+
+PRIMARY
+
+A primary color is the color displayed most frequently across your app's screens and components.
+Your primary color can be used to make a color theme for your app, including dark and light primary color variants.
+
+SECONDARY
+A secondary color provides more ways to accent and distinguish your product. Having a secondary color is 
+optional, and should be applied sparingly to accent select parts of your UI.
+* Floating action buttons
+* Selection controls, like sliders and switches
+* Highlighting selected text
+* Progress bars
+* Links and headlines
+
+Dark and light secondary variants
+Just like the primary color, your secondary color can have dark and light variants. A color
+theme can use your primary color, secondary color, and dark and light variants of each color.
+
+Surface, background, and error colors typically don’t represent brand:
+
+* Surface colors affect surfaces of components, such as cards, sheets, and menus.
+* The background color appears behind scrollable content. The baseline background and surface color is #FFFFFF.
+* Error color indicates errors in components, such as invalid text in a text field. The baseline error color is #B00020.
+
+Läs mer här när du väljer
+https://material.io/design/color/the-color-system.html#color-theme-creation
+
+*/
+@media only screen and (min-width: 768px) {
+  body {
+    width: 200px;
+  }
+  body #header {
+    width: 100%;
+  }
+  body #header form {
+    width: 100vw;
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  body #header form label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25%;
+    background: blue;
+  }
+  body #header form label h2 {
+    font-size: 1.5rem;
+    font-family: "Rubik", sans-serif;
+    font-weight: 600;
+  }
+  body #header form label select {
+    font-size: 1rem;
+    background-color: #eca400;
+    width: 100%;
+    text-align: center;
+    border: 1px solid #001d4a;
+  }
+  body #header form label option {
+    font-size: 1rem;
+  }
+  body #header form input {
+    font-size: 1.5rem;
+    font-family: "Rubik", sans-serif;
+    font-weight: 600;
+    margin: 1rem;
+    background-color: #eaf8bf;
+    color: #000000;
+  }
+  body form {
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  body form label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  body form label h2 {
+    font-size: 1.5rem;
+    font-family: "Rubik", sans-serif;
+    font-weight: 600;
+  }
+  body form label select {
+    font-size: 1rem;
+    background-color: #eca400;
+    width: 100%;
+    text-align: center;
+    border: 1px solid #001d4a;
+  }
+  body form label option {
+    font-size: 1rem;
+  }
+  body form input {
+    font-size: 1.5rem;
+    font-family: "Rubik", sans-serif;
+    font-weight: 600;
+    margin: 1rem;
+    background-color: #eaf8bf;
+    color: #000000;
+  }
+}
+body {
+  background-color: #ffffff;
+  font-size: 1rem;
+  font-family: "Rubik", sans-serif;
+  width: 100%;
+}
+body #header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #27476e;
+  color: #ffffff;
+}
+body #header #header-heading-div {
+  background: #001d4a;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body #header #header-heading-div h1 {
+  font-size: 2.188rem;
+  font-family: "Rubik", sans-serif;
+  font-weight: 900;
+  text-align: center;
+}
+body #header form {
+  width: 60vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+body #header form label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+body #header form label h2 {
+  font-size: 1.5rem;
+  font-family: "Rubik", sans-serif;
+  font-weight: 600;
+}
+body #header form label select {
+  font-size: 1rem;
+  background-color: #eca400;
+  width: 100%;
+  text-align: center;
+  border: 1px solid #001d4a;
+}
+body #header form label option {
+  font-size: 1rem;
+}
+body #header form input {
+  font-size: 1.5rem;
+  font-family: "Rubik", sans-serif;
+  font-weight: 600;
+  margin: 1rem;
+  background-color: #eaf8bf;
+  color: #000000;
+}
+body #main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  color: #000000;
+}
+body #main #leaders-pos-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+body #main #leaders-pos-card #poscardnav-heading-div {
+  width: 100%;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+body #main #leaders-pos-card #poscardnav-heading-div #leaders-pos-card-nav {
+  display: flex;
+  width: 100%;
+}
+body #main #leaders-pos-card #poscardnav-heading-div #leaders-pos-card-nav ul {
+  background-color: #27476e;
+  color: #ffffff;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  justify-content: space-around;
+}
+body #main #leaders-pos-card #leaders-pos-card-main {
+  height: 40vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  font-size: 0.75rem;
+}
+body #main #leaders-pos-card #leaders-pos-card-main #leaders-player-card {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+body #main #leaders-pos-card #leaders-pos-card-main #leaders-player-card #leaders-player-image {
+  width: 30vw;
+  border-radius: 100%;
+  border: 3px solid rgba(0, 29, 74, 0.2);
+}
+body #main #leaders-pos-card #leaders-pos-card-main #leaders-player-card #leaders-player-info {
+  display: flex;
+  flex-direction: column;
+}
+body #main #leaders-pos-card #leaders-pos-card-main #leaders-player-card #leaders-player-info #leaders-player-info-div-1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+body #main #leaders-pos-card #leaders-pos-card-main #leaders-player-card #leaders-player-info #leaders-player-info-div-1 #leaders-player-number {
+  display: flex;
+  align-items: center;
+}
+body #main #leaders-pos-card #leaders-pos-card-main #leaders-player-card #leaders-player-info #leaders-player-info-div-1 #leaders-player-number span {
+  font-size: 1rem;
+}
+body #main #leaders-pos-card #leaders-pos-card-main #leaders-player-card #leaders-player-info #leaders-player-info-div-1 #leaders-player-name {
+  font-size: 1rem;
+  border-left: 2px solid rgba(0, 29, 74, 0.3);
+}
+body #main #leaders-pos-card #leaders-pos-card-main #leaders-player-card #leaders-player-info #leaders-player-info-div-2 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+body #main #leaders-pos-card #leaders-pos-card-main #leaders-player-card #leaders-player-info #leaders-player-info-div-2 #leaders-player-team {
+  font-size: 0.75rem;
+}
+body #main #leaders-pos-card #leaders-pos-card-main #leaders-player-card #leaders-player-info #leaders-player-info-div-2 #leaders-player-pos {
+  font-size: 0.75rem;
+  border-left: 2px solid rgba(0, 29, 74, 0.3);
+}
+body #main #leaders-pos-card #leaders-pos-card-main #leaders-player-card #leaders-player-info #leaders-player-info-div-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+body #main #leaders-pos-card #leaders-pos-card-main #leaders-player-card #leaders-player-info #leaders-player-info-div-3 #leaders-player-points-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+body #main #leaders-pos-card #leaders-pos-card-main #leaders-player-card #leaders-player-info #leaders-player-info-div-3 #leaders-player-points {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+body #main #leaders-pos-card #leaders-pos-card-main #leaders-playerlist-div {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+body #main #leaders-pos-card #leaders-pos-card-main #leaders-playerlist-div #leaders-list {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+body #main #leaders-pos-card #leaders-pos-card-main #leaders-playerlist-div p {
+  font-size: 1rem;
+  font-weight: 700;
+}
+body #footer {
+  background: #001d4a;
+  color: #ffffff;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+body #footer #social-media-icons {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+body #footer #social-media-icons .social-media-icon {
+  font-size: 2.188rem;
+}
+
+/*# sourceMappingURL=small.css.map */

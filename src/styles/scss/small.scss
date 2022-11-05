@@ -1,0 +1,248 @@
+@use "medium" as medium;
+@use "large" as large;
+@use "text" as text;
+@use "colorscheme" as cs;
+@use "standards" as standards;
+
+body {
+  background-color: cs.$background;
+  font-size: text.$body-size;
+  font-family: text.$text-ff;
+  width: 100%;
+
+  #header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: cs.$primary;
+    color: cs.$on-primary;
+
+    #header-heading-div {
+      background: cs.$primary-variant;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      h1 {
+        font-size: text.$heading-h1;
+        font-family: text.$heading-ff;
+        font-weight: text.$boldest;
+        text-align: center;
+      }
+    }
+
+    form {
+      width: 60vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+
+      label h2 {
+        font-size: text.$subheading2;
+        font-family: text.$heading-ff;
+        font-weight: text.$semibold;
+      }
+
+      label select {
+        font-size: text.$body-size;
+        background-color: cs.$secondary;
+        width: 100%;
+        text-align: center;
+        border: 1px solid cs.$primary-variant;
+      }
+
+      label option {
+        font-size: text.$body-size;
+      }
+
+      input {
+        font-size: text.$subheading2;
+        font-family: text.$heading-ff;
+        font-weight: text.$semibold;
+        margin: 1rem;
+        background-color: cs.$secondary-variant;
+        color: cs.$on-secondary;
+      }
+    }
+  }
+
+  #main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: cs.$background;
+    color: cs.$on-background;
+
+    #leaders-pos-card {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      #poscardnav-heading-div {
+        width: 100%;
+        background: cs.$background;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        #leaders-pos-card-nav {
+          display: flex;
+          width: 100%;
+          ul {
+            background-color: cs.$primary;
+            color: cs.$on-primary;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            list-style-type: none;
+            justify-content: space-around;
+          }
+        }
+      }
+
+      #leaders-pos-card-main {
+        height: 40vh;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        font-size: text.$body-size-small;
+
+        #leaders-player-card {
+          width: 50%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+
+          #leaders-player-image {
+            width: 30vw;
+            border-radius: 100%;
+            border: 3px solid rgba(cs.$primary-variant, cs.$lighten-color-2);
+          }
+
+          #leaders-player-info {
+            display: flex;
+            flex-direction: column;
+
+            #leaders-player-info-div-1 {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: center;
+
+              #leaders-player-number {
+                display: flex;
+                align-items: center;
+
+                span {
+                  font-size: text.$body-size;
+                }
+              }
+              #leaders-player-name {
+                font-size: text.$body-size;
+                border-left: 2px solid
+                  rgba(cs.$primary-variant, cs.$lighten-color-3);
+              }
+            }
+
+            #leaders-player-info-div-2 {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: center;
+
+              #leaders-player-team {
+                font-size: text.$body-size-small;
+              }
+
+              #leaders-player-pos {
+                font-size: text.$body-size-small;
+                border-left: 2px solid
+                  rgba(cs.$primary-variant, cs.$lighten-color-3);
+              }
+            }
+
+            #leaders-player-info-div-3 {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+
+              #leaders-player-points-title {
+                font-size: text.$body-size-small;
+                font-weight: text.$bold;
+              }
+
+              #leaders-player-points {
+                font-size: text.$subheading2;
+                font-weight: text.$boldest;
+              }
+            }
+          }
+        }
+
+        #leaders-playerlist-div {
+          height: 100%;
+          width: 50%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+
+          #leaders-list {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            li {
+            }
+          }
+
+          p {
+            font-size: text.$body-size;
+            font-weight: text.$bold;
+          }
+        }
+      }
+    }
+  }
+
+  #footer {
+    background: cs.$primary-variant;
+    color: cs.$on-primary;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    #social-media-icons {
+      width: 50%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+
+      .social-media-icon {
+        font-size: text.$heading-h1;
+      }
+    }
+  }
+}
