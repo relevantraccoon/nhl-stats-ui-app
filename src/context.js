@@ -1,4 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
+// use temporary dummy data to avoid CORS errors
+import { dummyData } from "./dummydata/dummydata.js";
 
 const AppContext = React.createContext();
 
@@ -17,7 +19,7 @@ const urls = {
 };
 
 const AppProvider = ({ children }) => {
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [currentSeason, setCurrentSeason] = useState(`20222023`);
   const [leaders, setLeaders] = useState({});
   const [currentVarType, setCurrentVarType] = useState({
@@ -26,6 +28,10 @@ const AppProvider = ({ children }) => {
   });
   const [currentGameType, setCurrentGameType] = useState(`2`);
   const [testData, setTestData] = useState({ data: "initialData" });
+
+  // use temporary dummy data to avoid CORS errors
+  const { fetchedSkaters, fetchedGoalies, fetchedDefensemen, fetchedRookies } =
+    dummyData;
 
   useEffect(() => {
     async function fetchData(url) {
@@ -40,61 +46,63 @@ const AppProvider = ({ children }) => {
 
     const init = async () => {
       const fetchAndAssignLeaders = async (
+        // Activate fetching when ready to build and push
+        // Getting cors error while in local host, cors-anywhere is returning 403
+        // Temporary solution - using dummy data
         url = urls.getLeaders,
-        defenseMenModifier,
-        rookieModifier
+        defenseMenModifier = urls.defenseMenModifier,
+        rookieModifier = urls.rookieModifier
       ) => {
-        const { goaliesVarType, skatersVarType } = currentVarType;
+        //   const { goaliesVarType, skatersVarType } = currentVarType;
+        //   const corsPolicyPreambleURL = `https://cors-anywhere.herokuapp.com/`;
 
-        const leaders = {
-          goalies: {
-            position: `goalies`,
-            varTypes: [`gaa`, `savePctg`, `shutouts`],
-            gaaLeaders: {},
-            svPctgLeaders: {},
-            shutoutsLeaders: {},
-          },
-          skaters: {
-            position: `skaters`,
-            varTypes: [`points`, `goals`, `assists`],
-            pointsLeaders: {},
-            goalsLeaders: {},
-            assistsLeaders: {},
-          },
-          defensemen: {
-            modifier: defenseMenModifier,
-            position: `defensemen`,
-            varTypes: [`points`, `goals`, `assists`],
-            pointsLeaders: {},
-            goalsLeaders: {},
-            assistsLeaders: {},
-          },
-          rookies: {
-            rookieModifier,
-            varTypes: [`points`, `goals`, `assists`],
-            pointsLeaders: {},
-            goalsLeaders: {},
-            assistsLeaders: {},
-          },
+        //   const fetchedSkaters = await fetchData(
+        //     `${corsPolicyPreambleURL}${url
+        //       .replace("{position}", "skaters")
+        //       .replace("{varType}", skatersVarType)
+        //       .replace("{seasonYears}", currentSeason)
+        //       .replace("{gameType}", currentGameType)}`
+        //   );
+
+        //   const fetchedGoalies = await fetchData(
+        //     `${corsPolicyPreambleURL}${url
+        //       .replace("{position}", "goalies")
+        //       .replace("{varType}", goaliesVarType)
+        //       .replace("{seasonYears}", currentSeason)
+        //       .replace("{gameType}", currentGameType)}`
+        //   );
+
+        //   const fetchedDefensemen = await fetchData(
+        //     `${corsPolicyPreambleURL}${url
+        //       .replace("{position}", "skaters")
+        //       .replace("{varType}", skatersVarType)
+        //       .replace("{seasonYears}", currentSeason)
+        //       .replace("{gameType}", currentGameType)}${defenseMenModifier}`
+        //   );
+
+        //   const fetchedRookies = await fetchData(
+        //     `${corsPolicyPreambleURL}${url
+        //       .replace("{position}", "skaters")
+        //       .replace("{varType}", skatersVarType)
+        //       .replace("{seasonYears}", currentSeason)
+        //       .replace("{gameType}", currentGameType)}${rookieModifier}`
+        //   );
+
+        return {
+          fetchedSkaters,
+          fetchedGoalies,
+          fetchedDefensemen,
+          fetchedRookies,
         };
-
-        const fetchedSkaters = await fetchData(
-          url
-            .replace("{position}", leaders.skaters.position)
-            .replace("{varType}", skatersVarType)
-            .replace("{seasonYears}", currentSeason)
-            .replace("{gameType}", currentGameType)
-        );
-
-        return fetchedSkaters;
       };
 
-      const setSomeState = async () => {
+      const setStateAfterFetching = async () => {
         const fetchedLeaders = await fetchAndAssignLeaders();
-        setTestData(fetchedLeaders);
+        setLeaders(fetchedLeaders);
+        setLoading(false);
       };
 
-      setSomeState();
+      setStateAfterFetching();
     };
 
     init();
