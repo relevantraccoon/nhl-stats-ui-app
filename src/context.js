@@ -21,15 +21,15 @@ const urls = {
 const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [currentSeason, setCurrentSeason] = useState(`20222023`);
-  const [leaders, setLeaders] = useState({});
-  const [currentVarType, setCurrentVarType] = useState({
+  const [leaders, setLeaders] = useState([]);
+  const [currentScoreType, setCurrentScoreType] = useState({
     goaliesVarType: `gaa`,
     skatersVarType: `points`,
   });
   const [currentGameType, setCurrentGameType] = useState(`2`);
-  const [testData, setTestData] = useState({ data: "initialData" });
 
   // use temporary dummy data to avoid CORS errors
+
   const { fetchedSkaters, fetchedGoalies, fetchedDefensemen, fetchedRookies } =
     dummyData;
 
@@ -88,12 +88,30 @@ const AppProvider = ({ children }) => {
         //       .replace("{gameType}", currentGameType)}${rookieModifier}`
         //   );
 
-        return {
-          fetchedSkaters,
-          fetchedGoalies,
-          fetchedDefensemen,
-          fetchedRookies,
-        };
+        const fetchedLeadersArr = [
+          {
+            data: fetchedSkaters,
+            playerType: "skaters",
+            varTypes: ["points", "goals", "assists"],
+          },
+          {
+            data: fetchedDefensemen,
+            playerType: "defensemen",
+            varTypes: ["gaa", "sv%", "shutouts"],
+          },
+          {
+            data: fetchedGoalies,
+            playerType: "goalies",
+            varTypes: ["points", "goals", "assists"],
+          },
+          {
+            data: fetchedRookies,
+            playerType: "rookies",
+            varTypes: ["points", "goals", "assists"],
+          },
+        ];
+
+        return fetchedLeadersArr;
       };
 
       const setStateAfterFetching = async () => {
@@ -106,10 +124,16 @@ const AppProvider = ({ children }) => {
     };
 
     init();
-  }, [currentGameType, currentSeason, currentVarType]);
+  }, [currentGameType, currentSeason, currentScoreType]);
 
   return (
-    <AppContext.Provider value={{ loading, leaders, testData }}>
+    <AppContext.Provider
+      value={{
+        loading,
+        leaders,
+        currentScoreType,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

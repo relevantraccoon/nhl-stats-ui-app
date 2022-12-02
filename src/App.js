@@ -3,21 +3,21 @@ import Main from "./Components/Main";
 import Footer from "./Components/Footer";
 import Loading from "./Components/Loading";
 import { useGlobalContext } from "./context";
-import { useState } from "react";
 
 function App() {
-  const { loading, leaders, testData } = useGlobalContext();
+  const { loading, leaders } = useGlobalContext();
 
   if (loading) {
-    return <h1>Loading</h1>;
+    return <Loading />;
   }
 
-  if (testData) {
-    console.log("from frontend: ", testData);
-  }
+  // if (leaders) {
+  //   console.log("from frontend: ", leaders);
+  // }
+
   return (
     <div className="App">
-      <button onClick={() => console.log(testData)}>click me</button>
+      <button onClick={() => console.log(leaders)}>click me</button>
       <Header />
       <Main />
       <Footer />
