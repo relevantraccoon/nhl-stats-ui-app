@@ -1,137 +1,113 @@
 import React, { useContext, useState, useEffect } from "react";
-// use temporary dummy data to avoid CORS errors
+import { useFetchAll } from "./Components/services/useFetchAll";
 import { dummyData } from "./dummydata/dummydata.js";
 
 const AppContext = React.createContext();
 
-const url = `https://statsapi.web.nhl.com/api/v1/teams?expand=team.roster`;
-
 const urls = {
-  allTeamsURL: "https://statsapi.web.nhl.com/api/v1/teams",
-  // getPlayerStats: `https://statsapi.web.nhl.com/api/v1/people/{id}/stats/?stats=statsSingleSeason&season={season}`,
-  // getCurrentSeasonData: "https://statsapi.web.nhl.com/api/v1/seasons/current",
-  // getAllRosters:
-  //   "https://statsapi.web.nhl.com/api/v1/teams?expand=team.roster&season={season}",
-  getLeaders:
-    "https://api.nhle.com/stats/rest/en/leaders/{position}/{varType}?cayenneExp=season={seasonYears}%20and%20gameType={gameType}",
-  defenseMenModifier: "%20and%20player.positionCode%20=%20%27D%27",
-  rookieModifier: "%20and%20isRookie%20=%20%27Y%27",
+  baseString:
+    "https://api.nhle.com/stats/rest/en/leaders/{positionPlaceHolder}/{varTypePlaceHolder}?cayenneExp=season={seasonYearsPlaceHolder}%20and%20gameType={gameTypePlaceHolder}",
+  urlModifiers: {
+    defenseMenModifier: "%20and%20player.positionCode%20=%20%27D%27",
+    rookieModifier: "%20and%20isRookie%20=%20%27Y%27",
+    franchiseModifier: "%20and%20team.franchiseId={franchiseIdPlaceHolder}",
+  },
 };
 
-const AppProvider = ({ children }) => {
-  const [loading, setLoading] = useState(true);
-  const [currentSeason, setCurrentSeason] = useState(`20222023`);
-  const [leaders, setLeaders] = useState([]);
-  const [currentScoreType, setCurrentScoreType] = useState({
-    goaliesVarType: `gaa`,
-    skatersVarType: `points`,
+// Every reload (first page visit or if the user changes season/season type (gametype)/franchise) -
+// new API calls are needed. This function generates the full URL-array that can be passed to the useFetchAll service.
+
+const generateUrlArray = (
+  baseStringUrl,
+  urlModifiers,
+  season,
+  gameType,
+  franchiseId
+) => {
+  const { defenseMenModifier, rookieModifier, franchiseModifier } =
+    urlModifiers;
+  const { baseString } = baseStringUrl;
+
+  const skaterVarTypes = ["points", "goals", "assists"];
+  const goalieVarTypes = ["gaa", "savePctg", "shutouts"];
+
+  // Generate skater URLs
+  const skaterArray = skaterVarTypes.map((varType) => {
+    return baseStringUrl
+      .replace("{varTypePlaceHolder}", varType)
+      .replace("{positionPlaceHolder}", "skaters");
   });
-  const [currentGameType, setCurrentGameType] = useState(`2`);
 
-  // use temporary dummy data to avoid CORS errors
+  // Generate goalie URLs
 
-  const { fetchedSkaters, fetchedGoalies, fetchedDefensemen, fetchedRookies } =
-    dummyData;
+  const goalieArray = goalieVarTypes.map((varType) => {
+    return baseStringUrl
+      .replace("{varTypePlaceHolder}", varType)
+      .replace("{positionPlaceHolder}", "goalies");
+  });
 
-  useEffect(() => {
-    async function fetchData(url) {
-      const response = await fetch(url);
-      if (!response.ok) {
-        const errorMessage = `An error has occurred: ${response.status}`;
-        throw new Error(errorMessage);
-      }
-      const data = await response.json();
-      return data;
+  // Generate defensemen URLs
+
+  const defenseMenArray = skaterVarTypes.map((varType) => {
+    return baseStringUrl
+      .replace("{varTypePlaceHolder}", varType)
+      .replace("{positionPlaceHolder}", "skaters")
+      .concat(defenseMenModifier);
+  });
+
+  // Generate rookie URLs
+
+  const rookieArray = skaterVarTypes.map((varType) => {
+    return baseStringUrl
+      .replace("{varTypePlaceHolder}", varType)
+      .replace("{positionPlaceHolder}", "skaters")
+      .concat(rookieModifier);
+  });
+
+  // Flatten urlArray so we can map over it
+
+  const urlArray = [
+    skaterArray,
+    goalieArray,
+    defenseMenArray,
+    rookieArray,
+  ].flat();
+
+  // FranchiseId will only be relevant if it gets passed into function. If no franchise is chosen, leaders
+  // for the whole league is returned from the API instead.
+  return urlArray.map((url) => {
+    if (franchiseId) {
+      return url
+        .concat(franchiseModifier)
+        .replace("{franchiseIdPlaceHolder}", franchiseId)
+        .replace("{seasonYearsPlaceHolder}", season)
+        .replace("{gameTypePlaceHolder}", gameType);
+    } else {
+      return url
+        .replace("{seasonYearsPlaceHolder}", season)
+        .replace("{gameTypePlaceHolder}", gameType);
     }
+  });
+};
 
-    const init = async () => {
-      const fetchAndAssignLeaders = async (
-        // Activate fetching when ready to build and push
-        // Getting cors error while in local host, cors-anywhere is returning 403
-        // Temporary solution - using dummy data
-        url = urls.getLeaders,
-        defenseMenModifier = urls.defenseMenModifier,
-        rookieModifier = urls.rookieModifier
-      ) => {
-        //   const { goaliesVarType, skatersVarType } = currentVarType;
-        //   const corsPolicyPreambleURL = `https://cors-anywhere.herokuapp.com/`;
+// const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
-        //   const fetchedSkaters = await fetchData(
-        //     `${corsPolicyPreambleURL}${url
-        //       .replace("{position}", "skaters")
-        //       .replace("{varType}", skatersVarType)
-        //       .replace("{seasonYears}", currentSeason)
-        //       .replace("{gameType}", currentGameType)}`
-        //   );
-
-        //   const fetchedGoalies = await fetchData(
-        //     `${corsPolicyPreambleURL}${url
-        //       .replace("{position}", "goalies")
-        //       .replace("{varType}", goaliesVarType)
-        //       .replace("{seasonYears}", currentSeason)
-        //       .replace("{gameType}", currentGameType)}`
-        //   );
-
-        //   const fetchedDefensemen = await fetchData(
-        //     `${corsPolicyPreambleURL}${url
-        //       .replace("{position}", "skaters")
-        //       .replace("{varType}", skatersVarType)
-        //       .replace("{seasonYears}", currentSeason)
-        //       .replace("{gameType}", currentGameType)}${defenseMenModifier}`
-        //   );
-
-        //   const fetchedRookies = await fetchData(
-        //     `${corsPolicyPreambleURL}${url
-        //       .replace("{position}", "skaters")
-        //       .replace("{varType}", skatersVarType)
-        //       .replace("{seasonYears}", currentSeason)
-        //       .replace("{gameType}", currentGameType)}${rookieModifier}`
-        //   );
-
-        const fetchedLeadersArr = [
-          {
-            data: fetchedSkaters,
-            playerType: "skaters",
-            varTypes: ["points", "goals", "assists"],
-          },
-          {
-            data: fetchedDefensemen,
-            playerType: "defensemen",
-            varTypes: ["gaa", "sv%", "shutouts"],
-          },
-          {
-            data: fetchedGoalies,
-            playerType: "goalies",
-            varTypes: ["points", "goals", "assists"],
-          },
-          {
-            data: fetchedRookies,
-            playerType: "rookies",
-            varTypes: ["points", "goals", "assists"],
-          },
-        ];
-
-        return fetchedLeadersArr;
-      };
-
-      const setStateAfterFetching = async () => {
-        const fetchedLeaders = await fetchAndAssignLeaders();
-        setLeaders(fetchedLeaders);
-        setLoading(false);
-      };
-
-      setStateAfterFetching();
-    };
-
-    init();
-  }, [currentGameType, currentSeason, currentScoreType]);
+const AppProvider = ({ children }) => {
+  const [season, setSeason] = useState();
+  const [seasonType, setSeasonType] = useState();
+  const [franchise, setFranchise] = useState(null);
 
   return (
     <AppContext.Provider
       value={{
-        loading,
-        leaders,
-        currentScoreType,
+        urls,
+        season,
+        setSeason,
+        seasonType,
+        setSeasonType,
+        franchise,
+        setFranchise,
+        generateUrlArray,
       }}
     >
       {children}
